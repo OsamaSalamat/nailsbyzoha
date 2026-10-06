@@ -875,7 +875,6 @@ footer{background:var(--ink);color:#D9C9CE;padding:64px 0 28px;margin-top:0}
 }
 .pd-bar-share:hover{background:var(--rose-soft);color:var(--rose-dk)}
 .pd-bar-share svg{width:19px;height:19px;stroke-width:2}
-
 .pd{display:grid;grid-template-columns:1fr;gap:0}
 @media(min-width:760px){
   .pd{grid-template-columns:1fr 1.1fr;align-items:stretch}
@@ -887,12 +886,14 @@ footer{background:var(--ink);color:#D9C9CE;padding:64px 0 28px;margin-top:0}
   aspect-ratio:1/1;
   width:100%;
 }
+.pd-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s var(--ease)}
+.pd-img:hover img{transform:scale(1.04)}
 @media(min-width:760px){
   .pd-img{
     aspect-ratio:auto;
     height:100%;
-    min-height:0;
-    border-radius:24px 0 0 24px;
+    min-height:520px;
+    border-radius:24px 0 0 0;
   }
   .pd-img img{
     position:absolute;
@@ -906,14 +907,14 @@ footer{background:var(--ink);color:#D9C9CE;padding:64px 0 28px;margin-top:0}
 .pd-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
 .pd-img:hover img{transform:scale(1.05)}
 .pd-info{
-  padding:22px 20px 4px;
+  padding:22px 20px 24px;
   display:flex;
   flex-direction:column;
   align-items:stretch;
   gap:12px;
 }
 @media(min-width:760px){
-  .pd-info{padding:36px 32px 36px 30px;gap:14px}
+  .pd-info{padding:32px 32px 36px 30px;gap:11px}
 }
 .pd-info h2{font-size:clamp(1.55rem,5vw,2.3rem);line-height:1.1}
 @media(min-width:760px){.pd-info h2{font-size:clamp(1.8rem,2.4vw,2.3rem)}}
@@ -1000,7 +1001,7 @@ footer{background:var(--ink);color:#D9C9CE;padding:64px 0 28px;margin-top:0}
   .pd-add-btn{padding:12px 10px;font-size:12px;letter-spacing:0}
 }
 
-.trust-row{display:flex;gap:14px;padding:14px 0 4px;border-top:1px solid var(--line);flex-wrap:wrap;margin-top:6px}
+.trust-row{display:flex;gap:14px;padding:14px 0 4px;border-top:1px solid var(--line);flex-wrap:wrap;margin-top:10px;justify-content:center}
 .trust-item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);font-weight:500}
 .trust-item svg{width:15px;height:15px;stroke:var(--rose-dk);stroke-width:1.9;flex-shrink:0}
 .stock-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:7px 14px;border-radius:100px;width:fit-content}
@@ -1014,8 +1015,14 @@ footer{background:var(--ink);color:#D9C9CE;padding:64px 0 28px;margin-top:0}
 .loyalty-hint{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--gold);padding:6px 13px;border-radius:100px;background:#FFF9E6;width:fit-content}
 .loyalty-hint svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2}
 
-.fbt{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;margin:0 20px 24px}
-@media(min-width:760px){.fbt{margin:0 30px 26px}}
+.pd-badges-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+}
+.fbt{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;margin:24px 20px}
+@media(min-width:760px){.fbt{margin:28px 30px 30px}}
 .fbt h4{font-family:var(--ff-head);font-size:19px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .fbt h4 svg{width:18px;height:18px;stroke:var(--rose-dk);stroke-width:2}
 .fbt-items{display:flex;align-items:center;gap:12px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;max-width:100%}
@@ -2195,9 +2202,11 @@ function openProduct(id){
           ${sale?`<span class="price-old" style="font-size:16px">${esc(money(p.compare))}</span>`:''}
           ${sale?`<span style="font-size:10px;font-weight:700;color:var(--rose-dk);background:var(--rose-soft);padding:3px 8px;border-radius:100px">Save ${esc(money(p.compare-p.price))}</span>`:''}
         </div>
-        <div class="loyalty-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7L12 17.8 5.7 21.2 7 14.2l-5-4.8 7-.9z"/></svg>Earn ${points} loyalty points</div>
-        ${cd?`<div class="stock-pill low"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sale ends in ${esc(cd)}</div>`:''}
-        <div class="stock-pill ${out?'out':(low?'low':'in')}">${out?'Out of stock':(low?`Only ${p.stock} left in stock`:`In stock — ${p.stock} available`)}</div>
+        <div class="pd-badges-row">
+          <div class="loyalty-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7L12 17.8 5.7 21.2 7 14.2l-5-4.8 7-.9z"/></svg>Earn ${points} points</div>
+          <div class="stock-pill ${out?'out':(low?'low':'in')}">${out?'Out of stock':(low?`Only ${p.stock} left`:`In stock — ${p.stock}`)}</div>
+          ${cd?`<div class="stock-pill low"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sale ends in ${esc(cd)}</div>`:''}
+        </div>
         ${!out?`<div class="eta-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v10"/><path d="M15 9h4l3 4v4a1 1 0 0 1-1 1h-1"/><circle cx="7.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>Order today, delivery <b>${estDelivery()}</b></div>`:''}
         <p class="pd-desc">${esc(p.desc||'Handcrafted with premium materials and finished by hand.')}</p>
         <div class="pd-feats">
@@ -2220,7 +2229,7 @@ function openProduct(id){
           <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6Z"/><path d="m9 12 2 2 4-4"/></svg>Secure payment</div>
           <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Easy returns</div>
         </div>
-        <p style="font-size:12.5px;color:var(--muted);text-align:center">Free delivery on orders over ${esc(money(SET.freeShip||0))}</p>
+                <p style="font-size:12.5px;color:var(--muted);text-align:center;width:100%;display:block;margin:0">Free delivery on orders over ${esc(money(SET.freeShip||0))}</p>
       </div>
     </div>
     ${fbt.length && !out ? `
