@@ -413,8 +413,12 @@ body.ticker-hidden .hero{padding-top:calc(var(--hdr) + 40px)}
 .col-card:hover .col-link{gap:16px}
 .col-link svg{width:15px;height:15px;stroke-width:2.2}
 
-.shop-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:22px;padding-top:8px}
-@media(max-width:480px){.shop-top{margin-bottom:16px}}
+.shop-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px;padding-top:8px}
+.shop-search{width:100%}
+@media(min-width:940px){
+  .shop-search{width:auto;flex:1;max-width:420px;min-width:220px}
+}
+@media(max-width:480px){.shop-top{margin-bottom:16px;gap:10px}}
 .shop-search{position:relative;flex:1;min-width:220px;max-width:420px}
 .shop-search svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted);stroke-width:1.9;pointer-events:none;z-index:2}
 .shop-search input{width:100%;padding:14px 42px 14px 47px;border-radius:100px;border:1.5px solid var(--line);background:#fff;font-size:14px;outline:none;transition:border-color .25s,box-shadow .25s}
@@ -433,19 +437,75 @@ body.ticker-hidden .hero{padding-top:calc(var(--hdr) + 40px)}
 .sug-item small{font-size:11.5px;color:var(--muted)}
 .sug-item .sug-price{font-weight:700;font-size:13.5px;color:var(--rose-dk);flex-shrink:0}
 .sug-empty{padding:20px;text-align:center;color:var(--muted);font-size:13.5px}
-.shop-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.sort-wrap{position:relative}
-.sort-select{padding:13px 40px 13px 18px;border-radius:100px;border:1.5px solid var(--line);background:#fff;font-size:13.5px;font-weight:600;color:var(--ink-2);outline:none;cursor:pointer;transition:border-color .2s;min-width:170px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238E7B82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;background-size:15px}
+.shop-controls{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;width:100%}
+.sort-wrap{position:relative;flex:1 1 auto;min-width:0}
+.sort-select{
+  width:100%;
+  padding:12px 32px 12px 14px;
+  border-radius:100px;
+  border:1.5px solid var(--line);
+  background:#fff;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink-2);
+  outline:none;
+  cursor:pointer;
+  transition:border-color .2s;
+  min-width:0;
+  text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238E7B82' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 11px center;
+  background-size:14px;
+}
 .sort-select:focus{border-color:var(--rose)}
-.filter-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:100px;border:1.5px solid var(--line);background:#fff;font-size:13.5px;font-weight:600;transition:all .25s}
+.filter-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:12px 14px;
+  border-radius:100px;
+  border:1.5px solid var(--line);
+  background:#fff;
+  font-size:13px;
+  font-weight:600;
+  transition:all .25s;
+  flex-shrink:0;
+}
+.filter-btn span{display:none}
 .filter-btn:hover,.filter-btn.on{border-color:var(--rose);background:var(--rose-soft);color:var(--rose-dk)}
 .filter-btn svg{width:16px;height:16px;stroke-width:2}
-@media(min-width:940px){.filter-btn{display:none}}
-.view-toggle{display:inline-flex;align-items:center;gap:3px;padding:4px;background:#fff;border:1.5px solid var(--line);border-radius:100px;flex-shrink:0}
-.view-toggle button{width:38px;height:34px;border-radius:100px;display:grid;place-items:center;color:var(--muted);transition:all .3s var(--spring)}
+.view-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:4px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:100px;
+  flex-shrink:0;
+}
+.view-toggle button{
+  width:34px;
+  height:32px;
+  border-radius:100px;
+  display:grid;
+  place-items:center;
+  color:var(--muted);
+  transition:all .3s var(--spring);
+}
 .view-toggle button.on{background:var(--ink);color:#fff;box-shadow:0 4px 12px rgba(36,26,30,.22)}
-.view-toggle button svg{width:16px;height:16px;stroke-width:2}
+.view-toggle button svg{width:15px;height:15px;stroke-width:2}
 .view-toggle button:hover:not(.on){color:var(--ink);background:var(--rose-soft)}
+
+@media(min-width:940px){
+  .shop-controls{width:auto;flex-wrap:wrap}
+  .filter-btn{display:none}
+  .sort-select{min-width:170px;width:auto;padding:13px 40px 13px 18px;font-size:13.5px;background-position:right 15px center;background-size:15px}
+  .view-toggle button{width:38px;height:34px}
+  .view-toggle button svg{width:16px;height:16px}
+}
 .chips{display:flex;gap:9px;overflow-x:auto;padding:4px 0 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;max-width:100%}
 .chips::-webkit-scrollbar{display:none}
 .chip{padding:10px 20px;border-radius:100px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap;transition:all .3s var(--spring);scroll-snap-align:start}
@@ -1334,7 +1394,7 @@ select.status:focus{border-color:var(--rose)}
           <button id="viewGridBtn" class="on" role="tab" aria-label="Grid view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
           <button id="viewSwipeBtn" role="tab" aria-label="Swipe view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="10" height="14" rx="2"/><path d="M17 8l4 4-4 4M21 12H9"/></svg></button>
         </div>
-        <button class="filter-btn" id="filterBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg>Filters</button>
+        <button class="filter-btn" id="filterBtn" aria-label="Filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg><span>Filters</span></button>
       </div>
     </div>
     <div class="chips" id="chips"></div>
